@@ -172,6 +172,50 @@ app.get("/events/:cod/:tipo", (req, res) => {
     }
 })
 
+// POST /events/reserved: Recupera l'elenco di tutti gli eventi con "Nome dell'evento" inserito nel Body.
+app.post("/events/reserved", (req, res) => {
+    let eventName = req.body.nome; // prendo il nome dell'evento dal body
+    let eventFiltr = [];
+
+    for (let [idx, item] of events.entries()) {
+        if (item.nome === eventName) {
+            eventFiltr.push(item);
+        }
+    }
+
+    if (eventFiltr.length > 0) {
+        res.json({
+            status: "SUCCESS",
+            data: eventFiltr
+        });
+    } else {
+        res.json({
+            status: "ERROR",
+            data: "Nessun evento trovato"
+        });
+    }
+});
+
+// GET /events/count/:id: Recupera il numero di partecipanti all'evento con ID definito nel URL.
+app.get("/events/count/partecipanti/:cod", (req, res) =>{
+    let numPar = req.params.cod; 
+
+    for( let [idx, item] of events.entries()){
+        if(item.codice == numPar){ 
+            res.json({
+                status: "SUCCESS",
+                data: "numero partecipanti: " + item.partecipanti //restituiscimi solo i partecipanti dell' oggetto
+            })
+            return;
+        }
+    }
+    
+    res.json({
+        status: "ERROR",
+        data: "Evento non trovato" 
+    })
+})
+
 //Avvio il web server
 app.listen(port, host, () => {
     console.log("Sono in ascolto sulla porta: " + port); //utilizzo una concatenazione di stringa in modo che se in futuro cambio la porta non dovrò mettere mano al codice
