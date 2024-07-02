@@ -172,7 +172,7 @@ app.get("/events/:cod/:tipo", (req, res) => {
     }
 })
 
-// POST /events/reserved: Recupera l'elenco di tutti gli eventi con "Nome dell'evento" inserito nel Body.
+//Recupera l'elenco di tutti gli eventi inserito nel Body.
 app.post("/events/reserved", (req, res) => {
     let eventName = req.body.nome; // prendo il nome dell'evento dal body
     let eventFiltr = [];
@@ -196,7 +196,7 @@ app.post("/events/reserved", (req, res) => {
     }
 });
 
-// GET /events/count/:id: Recupera il numero di partecipanti all'evento con ID definito nel URL.
+//Recupera il numero di partecipanti all'evento con ID definito nel URL.
 app.get("/events/count/partecipanti/:cod", (req, res) =>{
     let numPar = req.params.cod; 
 
